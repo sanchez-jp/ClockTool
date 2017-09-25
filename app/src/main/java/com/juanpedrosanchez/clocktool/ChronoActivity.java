@@ -1,5 +1,6 @@
 package com.juanpedrosanchez.clocktool;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,7 @@ public class ChronoActivity extends AppCompatActivity {
     private Button btnReset;
     private Button btnLap;
     private Button btnReloj;
-    private Button btnChrono;
+    private Button btnCount;
     private Chronometer chronometer;
     private ListView LV_vueltas;
     private ArrayList<String> lapList;
@@ -31,12 +32,14 @@ public class ChronoActivity extends AppCompatActivity {
         if(btnPause.getText().toString().equals("Pause")){
             chronometer.stop();
             btnPause.setText("Resume");
+            btnLap.setEnabled(false);
         }
         else if(btnPause.getText().toString().equals("Resume")){
             /*Se optiene el tiempo donde se hizo el stop y luego se calcula el tiempo que ha
             transcurrido. Una vez hecho esto se setea nuevamente el cronómetro y se inicia con
             start().*/
             btnPause.setText("Pause");
+            btnLap.setEnabled(true);
             int stoppedMilliseconds = 0;
 
             String chronoText = chronometer.getText().toString();
@@ -68,10 +71,12 @@ public class ChronoActivity extends AppCompatActivity {
 
         btnStart = (Button)findViewById(R.id.btnStart);
         btnPause = (Button)findViewById(R.id.btnPause);
+        btnPause.setEnabled(false);
         btnReset = (Button)findViewById(R.id.btnResetChrono);
         btnLap = (Button)findViewById(R.id.btnLap);
+        btnLap.setEnabled(false);
         btnReloj = (Button)findViewById(R.id.btnReloj);
-        btnChrono = (Button)findViewById(R.id.btnChrono);
+        btnCount = (Button)findViewById(R.id.btnCount);
         chronometer = (Chronometer)findViewById(R.id.chronometer);
         lapList = new ArrayList<>();
         adaptador = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,lapList);
@@ -85,6 +90,8 @@ public class ChronoActivity extends AppCompatActivity {
                 chronometer.setBase(SystemClock.elapsedRealtime()); // set base time for a chronometer
                 chronometer.start();
                 btnStart.setEnabled(false);
+                btnPause.setEnabled(true);
+                btnLap.setEnabled(true);
             }
         });
 
@@ -100,6 +107,8 @@ public class ChronoActivity extends AppCompatActivity {
             public void onClick(View view) {
                 btnStart.setEnabled(true);
                 btnPause.setText("Pause");
+                btnPause.setEnabled(false);
+                btnLap.setEnabled(false);
                 chronometer.stop();
                 chronometer.setBase(SystemClock.elapsedRealtime());
 
@@ -113,6 +122,22 @@ public class ChronoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 addLap();
+            }
+        });
+
+        btnReloj.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChronoActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChronoActivity.this, CounterActivity.class);
+                startActivity(intent);
             }
         });
     }
