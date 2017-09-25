@@ -3,12 +3,14 @@ package com.juanpedrosanchez.clocktool;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    final String TAG = "MENSAJE DE LOG";
     /*Declaración de Campo de texto. Pié de hora "Reloj"*/
     TextView headingText;
     /*Declaración de Botón para acceder a cronómetro*/
@@ -47,5 +49,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "Comienzo");
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG, "Pausa");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "Parado");
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "Destruido");
     }
 }
