@@ -2,8 +2,11 @@ package com.juanpedrosanchez.clocktool;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
+import android.os.SystemClock;
 
 public class ChronoActivity extends AppCompatActivity {
     Button btnStart;
@@ -12,6 +15,25 @@ public class ChronoActivity extends AppCompatActivity {
     Button btnLap;
     Button btnReloj;
     Button btnChrono;
+    Chronometer chronometer;
+
+    String base;
+
+    public void gestorBtnPause(){
+        Log.d("BOTON PAUSE", btnPause.getText().toString());
+        if(btnPause.getText().toString().equals("Pause")){
+            chronometer.stop();
+            btnPause.setText("Resume");
+            base = chronometer.getText().toString();
+        }
+        else if(btnPause.getText().toString().equals("Resume")){
+            chronometer.setText(base);
+            chronometer.start();
+            btnPause.setText("Pause");
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,11 +45,21 @@ public class ChronoActivity extends AppCompatActivity {
         btnLap = (Button)findViewById(R.id.btnLap);
         btnReloj = (Button)findViewById(R.id.btnReloj);
         btnChrono = (Button)findViewById(R.id.btnChrono);
+        chronometer = (Chronometer)findViewById(R.id.chronometer);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO
+                chronometer.setBase(SystemClock.elapsedRealtime()); // set base time for a chronometer
+                chronometer.start();
+                btnStart.setEnabled(false);
+            }
+        });
+
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gestorBtnPause();
             }
         });
     }
