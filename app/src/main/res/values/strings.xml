@@ -6,4 +6,5 @@
     <string name="lap">Vuelta</string>
     <string name="pause">Pausa</string>
     <string name="start">Inicio</string>
+    <string name="reset">Reset</string>
 </resources>
