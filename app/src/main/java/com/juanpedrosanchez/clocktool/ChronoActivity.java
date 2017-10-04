@@ -16,6 +16,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ChronoActivity extends AppCompatActivity {
+    final String TAG = "MENSAJE DE LOG";
+
     private Button btnStart;
     private Button btnPause;
     private Button btnReset;
@@ -27,6 +29,9 @@ public class ChronoActivity extends AppCompatActivity {
     private ArrayList<String> lapList;
     private ArrayAdapter<String> adaptador; // Adaptador para el ListView
     private int lap;
+
+    /*Atributos para guardar estado*/
+    private final static String CHRONOSTATE = "CHRONO_STATE";
 
     public void gestorBtnPause(){
         if(btnPause.getText().toString().equals("Pause")){
@@ -68,7 +73,10 @@ public class ChronoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chrono);
-
+     /*   if (savedInstanceState != null) {
+            num = savedInstanceState.getInt(COUNTERSTATE);
+        }
+    */
         btnStart = (Button)findViewById(R.id.btnStart);
         btnPause = (Button)findViewById(R.id.btnPause);
         btnPause.setEnabled(false);
@@ -76,7 +84,7 @@ public class ChronoActivity extends AppCompatActivity {
         btnLap = (Button)findViewById(R.id.btnLap);
         btnLap.setEnabled(false);
         btnReloj = (Button)findViewById(R.id.btnReloj);
-        btnCount = (Button)findViewById(R.id.btnCount);
+        btnCount = (Button)findViewById(R.id.btnCounter);
         chronometer = (Chronometer)findViewById(R.id.chronometer);
         lapList = new ArrayList<>();
         adaptador = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,lapList);
@@ -140,5 +148,34 @@ public class ChronoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        Log.d(TAG, "Comienzo cronómetro");
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString(CHRONOSTATE, chronometer.getText().toString());
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.d(TAG, "Pausa cronómetro");
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        Log.d(TAG, "Parado cronómetro");
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "Destruido cronómetro");
     }
 }

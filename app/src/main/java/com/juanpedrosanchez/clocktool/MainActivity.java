@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     final String TAG = "MENSAJE DE LOG";
+
     /*Declaración de Campo de texto. Pié de hora "Reloj"*/
     TextView headingText;
     /*Declaración de Botón para acceder a cronómetro*/
@@ -18,12 +19,11 @@ public class MainActivity extends AppCompatActivity {
     /*Declaración de Botón para acceder a contador*/
     Button btnCount;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        
         /*Instanciación de headingText*/
         headingText = (TextView)findViewById(R.id.headingText);
         /*Instanciación de btnChrono*/
@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
 
     @Override
     public void onStart(){
