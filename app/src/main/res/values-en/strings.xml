@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ClockTool</string>
+    <string name="reloj">Clock</string>
+    <string name="contador">Counter</string>
+    <string name="cron_metro">Chronometer</string>
+    <string name="lap">Lap</string>
+    <string name="pause">Pause</string>
+    <string name="start">Start</string>
+</resources>

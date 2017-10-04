@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ClockTool</string>
+    <string name="reloj">Reloj</string>
+    <string name="contador">Contador</string>
+    <string name="cron_metro">Cronómetro</string>
+    <string name="lap">Vuelta</string>
+    <string name="pause">Pausa</string>
+    <string name="start">Inicio</string>
 </resources>
